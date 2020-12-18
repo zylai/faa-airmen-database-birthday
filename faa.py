@@ -28,7 +28,7 @@ for year in range(1900, 2020):
 				day_limit = 28
 		for day in range(1, day_limit):
 			driver.find_element_by_xpath(lastname_field).clear();
-			driver.find_element_by_xpath(lastname_field).send_keys("lindbergh");
+			driver.find_element_by_xpath(lastname_field).send_keys("lindbergh"); #using charles lindbergh to test since his DOB is publicly known
 
 			Select(driver.find_element_by_xpath(month_dropdown)).select_by_value(str(month).zfill(2))
 			Select(driver.find_element_by_xpath(day_dropdown)).select_by_value(str(day).zfill(2))
@@ -38,4 +38,6 @@ for year in range(1900, 2020):
 
 			driver.find_element_by_xpath(submit_buttom).click()
 
-			time.sleep(60)
+			#time.sleep(10)
+
+			assert "search criteria provided above." in driver.page_source
