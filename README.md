@@ -2,7 +2,7 @@
 
 ### WARNING: This is a proof of concept and is not intended to be used for malicious purposes
 
-The Federal Aviation Administration (FAA)'s airmen database lets anyone look up information about a pilot. The only required field is last name, however if a query returns more than 50 results, you must provide additional information such as first name, certificate number, date of birth, etc. to narrow down the results. Using Charles Lindbergh as an example (yes, the FAA's database goes back that far): 
+The Federal Aviation Administration (FAA)'s airmen database lets anyone look up information about a pilot. The only required field is last name. However, if a query returns more than 50 results, you must provide additional information such as first name, certificate number, date of birth, etc. to narrow down the results. Using Charles Lindbergh as an example (yes, the FAA's database goes back that far): 
 
 ```
 Query: Lindbergh, 02/04/1902
