@@ -12,6 +12,7 @@ month_dropdown = '//*[@id="ctl00_content_ctl01_ddlSearchBirthMonth"]'
 day_dropdown = '//*[@id="ctl00_content_ctl01_ddlSearchBirthDay"]'
 year_field = '//*[@id="ctl00_content_ctl01_txtbxSearchBirthYear"]'
 submit_buttom = '//*[@id="ctl00_content_ctl01_btnSearch"]'
+airmen_exists = '//*[@id="ctl00_content_ctl01_drAirmenList_ctl01_lnkbtnAirmenName"]'
 
 for year in range(1900, 2020):
 	search_year = year
@@ -40,4 +41,9 @@ for year in range(1900, 2020):
 
 			#time.sleep(10)
 
-			assert "search criteria provided above." in driver.page_source
+			assert "search criteria provided above" in driver.page_source
+
+			if (driver.find_element_by_xpath(airmen_exists)):
+				print ("Birthday found: " + str(search_month) + "/" + str(day) + "/" + str(search_year))
+				driver.close()
+				quit()
