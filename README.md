@@ -32,7 +32,7 @@ Result
 No records found based on search criteria provided above. 
 ```
 
-This is a design flaw as it allows a pilot's DOB to be discovered via brute forcing. One just has to loop through every possible date until the query returns a match. On a good day, the FAA database takes about 5-7 seconds per query. In addition, there appears to not be a throttling mechainism in place to limit the amount of queries one can send. If you can narrow down a person's birthday to a 10-year range, you can find out their DOB in about 10 hours. In a spear phishing attack, a dedicated attacker can run this in parallel and discover an individual's DOB in a matter of hours.
+This is a design flaw as it allows a pilot's DOB to be discovered via brute forcing. One just has to loop through every possible date until the query returns a match. On a good day, the FAA database takes about 5-7 seconds per query. In addition, there appears to not be a throttling mechainism in place to limit the amount of queries one can send. If you can narrow down a person's birthday to a 10-year range, you can find out their DOB in about 10 hours. In a spear phishing attack, a dedicated attacker can run this in parallel and discover an individual's DOB in a matter of hours. In this day and age where most identity verification is done by providing your DOB and last 4 of SSN, I consider this a pretty significant design flaw. 
 
 For this tool to work, you must provide enough information about an airman so that the query only returns one result. The script automatically stops as soon as it a query returns at least one match. Also note that if a query returns more than 50 results, you must provide more information to narrow down the results.
 
@@ -40,8 +40,9 @@ Requires Selenium and WebDriver. Tested on Python 3.9 on macOS Big Sur (11.0).
 
 ### Additional notes
 
-- This same method could also be used to discover a pilot's certificate number since the FAA assigns certificate numbers incrementally
-  - We're in the 4xxxxxx range as of 2020
+- There is a bug in the FAA's database where 01/01/1900 matches everyone
+- This same method could also be used to discover a pilot's certificate number since the FAA assigns certificate numbers incrementally, although much harder as there are 7 digits
+  - We're in the 4xxxxxx range beginning ~2017
   - Note that a certificate number is only generated once (typically after an airman's first approved 8710) and they're stuck with that number for life
     - For pilots that soloed before April 1, 2016, this is typically a sport or private pilot certificate
     - For pilots that soloed after April 1, 2016, this will always be a student pilot certificate
@@ -50,7 +51,6 @@ Requires Selenium and WebDriver. Tested on Python 3.9 on macOS Big Sur (11.0).
   - This is where things get dangerous as anyone can submit a request for a pilot's [airman certification records](https://www.faa.gov/licenses_certificates/airmen_certification/copy_of_certification_records/) (which includes things such as testing records, accidents, enforcement, etc.) as long as they have the pilot's name, DOB, and certificate number
 - This design flaw does not affect the city and state fields since the FAA allows an airman to opt out of making their address publicly visible
   - In that case, the database returns no results even if your query is correct
-- There is also a bug in the FAA's database where 01/01/1900 matches everyone
 
 ### Roadmap
 
