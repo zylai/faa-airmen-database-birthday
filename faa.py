@@ -46,6 +46,7 @@ for year in range(1901, 2020):
 			else:
 				day_limit = 28
 		for day in range(1, day_limit+1):
+			driver.find_element_by_xpath(firstname_field).clear()
 			driver.find_element_by_xpath(lastname_field).clear()
 			driver.find_element_by_xpath(firstname_field).send_keys(firstname)
 			driver.find_element_by_xpath(lastname_field).send_keys(lastname)
