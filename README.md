@@ -1,7 +1,5 @@
 # FAA Airmen Database Birthday Brute Force Tool
 
-### Work in progress
-
 ### WARNING: This is a proof of concept and is not intended to be used for malicious purposes
 
 The Federal Aviation Administration (FAA)'s airmen database lets anyone look up information about a pilot. The only required field is last name. However, other fields such as first name, certificate number, date of birth, etc. are available to narrow down the results. If these optional fields are used, their values must be an exact match for the database to return a result.
@@ -9,19 +7,52 @@ The Federal Aviation Administration (FAA)'s airmen database lets anyone look up 
 Using Charles Lindbergh as an example (yes, the FAA's database goes back that far): 
 
 ```
-Query: Lindbergh, 02/04/1902
+Query
+----
+Last name: Lindbergh
+First name: Char
+DOB: Feb 04, 1902
+
+Result
+----
 Total names found is 1 based on the search criteria provided above.
 ```
 
 Note that the DOB cannot be partial and must be an exact match.
 
 ```
-Query: Lindbergh, 02/05/1903
+Query
+----
+Last name: Lindbergh
+First name: Char
+DOB: Feb 05, 1903
+
+Result
+----
 No records found based on search criteria provided above. 
 ```
 
-This is a design flaw as it allows a pilot's DOB to be discovered via brute forcing. One just has to loop through every possible date until the query returns a match. On a good day, the FAA database takes about 8 seconds per query. If you can narrow down a person's birthday to a 10-year range, you can find out someone's DOB in about 10 hours. A dedicated attacker can run this in parallel and discover an individual's DOB in a matter of hours in a spear phishing attack.
+This is a design flaw as it allows a pilot's DOB to be discovered via brute forcing. One just has to loop through every possible date until the query returns a match. On a good day, the FAA database takes about 5-7 seconds per query. In addition, there appears to not be a throttling mechainism in place to limit the amount of queries one can send. If you can narrow down a person's birthday to a 10-year range, you can find out their DOB in about 10 hours. In a spear phishing attack, a dedicated attacker can run this in parallel and discover an individual's DOB in a matter of hours.
 
-For this tool to work, you must provide enough information about an airman so that the query only returns one results. The script automatically stops as soon as it finds a query with at least one result. Also note that if a query returns more than 50 results, you must provide more information to narrow down the results. There is also a bug in the FAA's database where 01/01/1900 matches everyone.
+For this tool to work, you must provide enough information about an airman so that the query only returns one result. The script automatically stops as soon as it a query returns at least one match. Also note that if a query returns more than 50 results, you must provide more information to narrow down the results.
 
 Requires Selenium and WebDriver. Tested on Python 3.9 on macOS Big Sur (11.0).
+
+### Additional notes
+
+- This same method could also be used to discover a pilot's certificate number since the FAA assigns certificate numbers incrementally
+  - We're in the 4xxxxxx range as of 2020
+  - Note that a certificate number is only generated once (typically after an airman's first approved 8710) and they're stuck with that number for life
+    - For pilots that soloed before April 1, 2016, this is typically a sport or private pilot certificate
+    - For pilots that soloed after April 1, 2016, this will always be a student pilot certificate
+  - For some older pilots, the certificate number is their social security number
+    - Though the he FAA has stopped this practice a while ago and allows anyone with an SSN as their certificate number to request a new number
+  - This is where things get dangerous as anyone can submit a request for a pilot's [airman certification records](https://www.faa.gov/licenses_certificates/airmen_certification/copy_of_certification_records/) (which includes things such as testing records, accidents, enforcement, etc.) as long as they have the pilot's name, DOB, and certificate number
+- This design flaw does not affect the city and state fields since the FAA allows an airman to opt out of making their address publicly visible
+  - In that case, the database returns no results even if your query is correct
+- There is also a bug in the FAA's database where 01/01/1900 matches everyone
+
+### Roadmap
+
+- Allow user to define a narrower date range (only search through specific year or month)
+- Allow user to define narrower search parameters (certificate number, country, or city and state)
