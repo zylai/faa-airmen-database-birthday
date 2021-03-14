@@ -48,7 +48,6 @@ Requires Selenium and WebDriver. Tested on Python 3.9 on macOS Big Sur (11.0).
     - For pilots that soloed after April 1, 2016, this will always be a student pilot certificate
   - For some older pilots, the certificate number is their social security number
     - Though the he FAA has stopped this practice a while ago and allows anyone with an SSN as their certificate number to request a new number
-  - This is where things get dangerous as anyone can submit a request for a pilot's [airman certification records](https://www.faa.gov/licenses_certificates/airmen_certification/copy_of_certification_records/) (which includes things such as testing records, accidents, enforcement, etc.) as long as they have the pilot's name, DOB, and certificate number
 - This design flaw does not affect the city and state fields since the FAA allows an airman to opt out of making their address publicly visible
   - In that case, the database returns no results even if your query is correct
 
