@@ -47,7 +47,7 @@ Requires Selenium and WebDriver. Tested on Python 3.9 on macOS Big Sur (11.0).
     - For pilots that soloed before April 1, 2016, this is typically a sport, recreational, or private pilot certificate
     - For pilots that soloed after April 1, 2016, this will always be a student pilot certificate
   - For some older pilots, the certificate number is their social security number
-    - Though the he FAA has stopped this practice a while ago and allows anyone with an SSN as their certificate number to request a new number
+    - Though the FAA has discontinued this practice a while ago and allows anyone with a SSN certificate number to request a new number
 - This design flaw does not affect the city and state fields since the FAA allows an airman to opt out of making their address publicly visible
   - In that case, the database returns no results even if your query is correct
 
