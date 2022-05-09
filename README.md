@@ -44,7 +44,7 @@ Requires Selenium and WebDriver. Tested on Python 3.9 on macOS Big Sur (11.0).
 - This same method could also be used to discover a pilot's certificate number since the FAA assigns certificate numbers incrementally, although much harder as there are 7 digits
   - We're in the 4xxxxxx range beginning ~2017
   - Note that a certificate number is only generated once (typically after an airman's first approved 8710) and they're stuck with that number for life
-    - For pilots that soloed before April 1, 2016, this is typically a sport or private pilot certificate
+    - For pilots that soloed before April 1, 2016, this is typically a sport, recreational, or private pilot certificate
     - For pilots that soloed after April 1, 2016, this will always be a student pilot certificate
   - For some older pilots, the certificate number is their social security number
     - Though the he FAA has stopped this practice a while ago and allows anyone with an SSN as their certificate number to request a new number
